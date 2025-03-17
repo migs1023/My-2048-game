@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html><head>
+  <title>2048 Cartoon Version</title> 
+  <meta charset="utf-8">
+  <link rel="stylesheet">
+  </head>
+  <body>
+
+    <!-- BGM -->
+    <script src="bgm.js"></script>
+    <audio id ="bgm" src="Kevin MacLeod_ New Friendly.mp3" loop autoplay></audio>
+    <div id="play">&#127929; Click here to start music for best experience in playing 2048.
+
+    </div>
+<div id='container'>
+  <div id='head'>
+    <h1>2048</h1>
+    <div id='scoreBar'>
+      <div id='score'>0</div>
+
+    </div>
+  </div>
+
+  <div id="intro">
+    <div id='text'>
+      <h2 style="color: white">Friendly Cartoon Version</h2>
+      <p>Join the numbers and get to the <strong>2048 tile!</strong></p>
+    </div>
+    <button id='restart'>New Game</button>
+  </div>
+
+  <div id='game'>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="mask" hidden></div>
+    <div class="gameover" hidden>Game over!</div>
+    <button id="again" hidden>Try again</button>
+  </div>
+  <div id='footer'>
+    <p><strong>HOW TO PLAY:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
+    </p>
+
+    <p style="padding-top: 10px;"><strong>Made with: My Talking Tom 2048 minigame</p>
+    <p style="padding-top: 10px;">Music: New Friendly by Kevin MacLeod (song from BFDI by JackandJellify)</p>
+    <p style="padding-top: 10px;">2048 created by Gabriele Cirulli.</p>
+    <script src="script.js"></script>
+</div>
+
+    <STYLE>
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html{
+  font-size: 10px;
+  overflow: hidden;
+}
+footer{
+  margin-top: 40px;
+    position: relative;
+    padding: grid-spacing;
+}
+
+body {
+  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlM5K9P-1SW1LOjE8UHg7v5D8-6OwclavHR9E8rCSC0HoRS7jMTDTv0owGvtLwS9YXT0Q&usqp=CAU);
+  font-family: ShagExpert;
+  font-size: 15px;
+}
+#play{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  padding: 10px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: white;
+  background: #000;
+  opacity: 0; visibility: hidden;
+  transition: all 1s;
+}
+#play.show{
+  opacity: 1; visibility: visible;
+  transition: all 1s;}
+
+#head {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+#intro p {
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+#container {
+  position:relative;
+  width: 450px;
+  margin: 0 auto;
+  padding: 5px 50px;
+}
+h1 {
+  display: inline;
+  color: white;
+  font-size: 7rem;
+  line-height: 8rem;
+  letter-spacing: 2px;
+}
+p {
+  color: white;
+  font-size: 1.4em;
+}
+#scoreBar {
+  overflow: hidden;
+  display: flex;
+  position: relative;
+  justify-content: space-around;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+}
+#score{
+  position: relative;
+  display: inline-block;
+  font-size: 2rem;
+  background-color: Green;
+  height: 50px;
+  margin: 0 3px;
+  border-radius: 3px;
+  line-height: 7rem;
+  padding: 0 20px;
+  font-weight: bold;
+  color: white;
+}
+
+#score::after {
+  content: "SCORE";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  line-height: 3rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+button {
+  box-sizing: content-box;
+  background-color: green;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  width: 100px;
+  height: 30px;
+  padding: 5px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #fff;
+  line-height: 30px;
+}
+button:hover {
+  cursor: pointer;
+}
+#restart {
+  display: inline-block;
+  font-family: ShagExpert;
+}
+#intro {
+  display: flex;
+  justify-content: space-between;
+}
+
+#game {
+  position:relative;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 10px;
+  column-gap: 10px;
+  width: 450px;
+  height: 450px;
+  box-sizing: border-box;
+  background-color: black;
+  border-radius: 5px;
+  margin: 20px 0;
+  overflow: hidden;
+  padding: 10px;
+  color: #fff;
+}
+
+.item {
+  background-color: gray;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 100px;
+  font-size: 4.8rem;
+  font-weight: bold;
+   
+}
+.item:not(.item[data-value = '0']){
+  border:1px solid background-color;
+  z-index:0;
+}
+.item:not(.item[data-value = '0']){
+  border:1px solid background-color;
+  z-index:2;
+}
+.item[data-value ='mid'] {
+  font-size: 3.5rem;
+  background-color:#444;
+}
+.item[data-value ='big'] {
+  font-size: 2.8rem;
+  background-color:#444;
+}
+.item[data-value ='more-big'] {
+  font-size: 2.2rem;
+  background-color:#444;
+}
+.item[data-value="2"] {
+  content:'2';
+  background-color: yellow;
+  color: black;
+  font-family: gameless sans;
+}
+.item[data-value="4"] {
+  background-color: Lime;
+  color: black;
+  font-family: gameless sans;
+}
+.item[data-value="8"] {
+  background-color: lightgreen;
+  font-family: gameless sans;
+}
+.item[data-value="16"] {
+  background-color: Lightblue;
+  font-family: gameless sans;
+}
+.item[data-value="32"] {
+  background-color: Blue;
+  font-family: gameless sans;
+}
+.item[data-value="64"] {
+  background-color: darkblue;
+  font-family: gameless sans;
+}
+.item[data-value="128"] {
+  background-color: purple;
+  font-size: 4rem;
+  font-family: gameless sans;
+}
+.item[data-value="256"] {
+  background-color: pink;
+  font-size: 4rem;
+  font-family: gameless sans;
+}
+.item[data-value="512"] {
+  background-color: lightcoral;
+  font-size: 4rem;
+  font-family: gameless sans;
+}
+.item[data-value="1024"] {
+  background-color: red;
+  font-size: 3.5rem;
+  font-family: gameless sans;
+}
+.item[data-value="2048"] {
+  background-color: gold;
+  font-size: 3.5rem;
+  font-family: gameless sans;
+}
+
+.moveTile{
+  width:100px;
+  height:100px;
+  color:#fff;
+  position:absolute;
+  transition:left 100ms ease-in,top 100ms ease-in,visibility 5ms linear 100ms; 
+}
+.mergeTile{
+  width:100px;
+  height:100px;
+  transform:scale(0);
+  position:absolute;
+  transition:transform 140ms cubic-bezier(0,.2,0,1.5),visibility 5ms linear 200ms; 
+  color: #fff;
+}
+.newTile{
+  width:100px;
+  height:100px;
+  transition:transform 200ms ease-in,visibility 5ms linear 250ms;
+  transform:scale(0);
+  position:absolute;
+  color: #fff;
+}
+
+.mask{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background-color:white;
+  opacity:.4;
+  top:0;
+  left:0;
+  z-index:50;
+  background-image: url(https://i.ytimg.com/vi/cQKxo0Dn2Pw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAwHWPr1n0dHN0_xlV_8Sg7KFmpMg);
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    opacity:0.8;
+}
+
+.gameover{
+
+  width:100%;
+  height:100%;
+  font-size:5rem;
+  position:absolute;
+  z-index:100;
+  color:white;
+  font-weight:bold;
+  text-align:center;
+  line-height:400px;
+
+}
+#again{
+  position:absolute;
+  left:0;
+  right:0;
+  margin:0 auto;
+  top:280px;
+  z-index:100;
+  font-family: ShagExpert;
+  
+}
+.scoreAdd{
+  position:absolute;
+  color:white;
+  font-size:2rem;
+  opacity:.6;
+  font-weight:bold;
+  transition:all 1s ease-out;
+}
+
+#footer{
+  margin-bottom:20px;
+}
+#footer > p{
+  font-size:1.7rem;
+}
+
+.line{
+  height:1px;
+  width:80%;
+  margin:30px auto;
+  border-top:2px solid #cdc1b4;
+}
+
+.moveTile .hidden{
+  visibility:hidden !important;
+}
+.mergeTile .hidden{
+  transform:scale(1);
+  visibility:hidden;
+}
+
+    </STYLE>
+
+  </body>
+</html>
